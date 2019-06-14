@@ -1,0 +1,113 @@
+vue/cli 脚手架环境（webpack ）
+
+1.支持热更新
+2.单文件组件 (.vue)  vue-loader 
+3.es6 
+
+import 标识符 from "路径"  导入
+
+export default 标识符  导出
+
+
+安装工具
+
+   npm i @vue/cli -g
+
+   vue -V
+
+建立项目
+
+     vue create 项目的名字
+
+启动项目
+   cd 项目目录
+   yarn serve ( npm run serve) 
+
+改配置
+
+ 在项目的根目录下:
+       建立以个Vue.config.js
+
+	module.exports = {
+		配置
+	}
+      
+module.exports = {
+  devServer: {
+    host:"0.0.0.0"   改这个的母的是开发阶段可以用手机进行预览
+  }
+}
+
+每一个组件文件都是.vue结尾的文件
+分成三个部分
+  template
+  script
+  style
+
+
+打包
+  npm run build
+
+  打包后会产生一个dist目录,打包后的文件放在里面
+
+cnpm i httpserver -g
+
+脚手架的目录结构
+	 src 源码  assets 下的静态资源会进行打包
+         public 静态资源   不会进行打包
+
+
+SPA 单页应用
+   @ 表示 src 
+
+ cnpm i express-generator -g
+  express --view=ejs 项目的名字
+
+   cd 项目的目录
+   cnpm i 
+   npm start 
+
+  url:"/data",
+param: no param,
+ methods:get
+response: .....
+
+
+npm i axios --save    (vue-resource)
+
+import axios from 'axios'
+
+axios.get(url,params:{....}).then().catch   axios.get 方法 返回值是promise
+axios.post(url,{...参数}).then().catch()   axios.post 方法 返回值是promise
+
+正向代理 （Vue.config.js）
+
+module.exports = {
+	devServer:{
+		proxy:{
+	 	"/hd":{   //标识
+	 		"target":"http://localhost:3000",
+	 		"changeOrigin":true,
+	 		"pathRewrite":{
+	 			"^/hd":""  // 标识符替换为空
+	 		}
+	 	}
+	 }
+	}
+	 
+}
+
+json-server   (mock数据)
+ npm i json-server -g   
+ json-server --version
+
+  json-server XXX.json (XXX.json目录下)
+
+
+只引入一次axios的方式
+
+  入口文件 main.js
+import axios from 'axios'
+Vue.prototype.axios = axios;
+在组件里
+ this.axios.get.......
